@@ -1,12 +1,22 @@
 var timeEl = document.querySelector(".time");
+var startEl = document.querySelector("#quizZone");
 
-var mutableEL = document.querySelector("#quizZone");
+var oneEl = document.querySelector("#pageOne");
+var twoEl = document.querySelector("#pageTwo");
+var threeEl = document.querySelector("#pageThree");
+var fourEl = document.querySelector("#pageFour");
+
+var endEl = document.querySelector("#end");
+
+var startButton = document.querySelector("#quizStart");
+var pageOneButton = document.querySelector("#nextPageOne");
+var pageTwoButton = document.querySelector("#nextPageTwo");
+var pageThreeButton = document.querySelector("#nextPageThree");
+var pageFourButton = document.querySelector("#nextPageFour");
 
 var secondsLeft = 100;
 
 var totalScore = 0; 
-
-// var questionCounter = 0;
 
 function setTime() {
   var timerInterval = setInterval(function() {
@@ -20,6 +30,32 @@ function setTime() {
 
   }, 1000);
 }
+
+startButton.onclick = () => {
+	startEl.style.display = "none";
+	oneEl.style.display = "block";
+}
+
+pageOneButton.onclick = () => {
+	oneEl.style.display = "none";
+	twoEl.style.display = "block";
+}
+
+pageTwoButton.onclick = () => {
+	twoEl.style.display = "none";
+	threeEl.style.display = "block";
+}
+
+pageThreeButton.onclick = () => {
+	threeEl.style.display = "none";
+	fourEl.style.display = "block";
+}
+
+pageFourButton.onclick = () => {
+	fourEl.style.display = "none";
+	endEl.style.display = "block";
+}
+
 
 
 
