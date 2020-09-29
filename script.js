@@ -1,221 +1,150 @@
-var timeEl = document.querySelector(".time");
-var startEl = document.querySelector("#quizZone");
+var questions = [{
+	q: "What is HTML?",
+	ans: ["Hyper Text Markup Language ()" , "The basic structure of your web page ()" , "Language that uses tags and elements ()" , "A type of frog"],
+	incAns: "A type of frog"
+	},
+	{
+	q: "What is CSS?",
+	ans: ["Cascading Style Sheets ()" , "The basic look of your web page ()" , "Chicken Carbonara Sauce ()" , "Code that uses classes, IDs, and other elements"],
+	incAns: "Chicken Carbonara Sauce"
+	},
+	{
+		q: "What is Javascript?",
+		ans: ["A coding language that uses traditional programming logic ()" , "A way to make your web page interactive ()" , "One of the most popular coding languages on the web ()" , "Nothing, and is nowhere, and is endless"],
+		incAns: "Nothing, and is nowhere, and is endless"
+	},
+	{
+		q: "What is a successful strategy for learning to code?",
+	ans: ["Take a day off here and there ()" , "Be obsessive ()" , "Coffee ()" , "yes I said yes I will Yes"],
+	incAns: "Take a day off here and there ()"
+	}
 
-var oneEl = document.querySelector("#pageOne");
-var twoEl = document.querySelector("#pageTwo");
-var threeEl = document.querySelector("#pageThree");
-var fourEl = document.querySelector("#pageFour");
+];
 
-var endEl = document.querySelector("#end");
+var totalScore = 1000000;
 
-var startButton = document.querySelector("#quizStart");
-var pageOneButton = document.querySelector("#nextPageOne");
-var pageTwoButton = document.querySelector("#nextPageTwo");
-var pageThreeButton = document.querySelector("#nextPageThree");
-var pageFourButton = document.querySelector("#nextPageFour");
+var pageIndex = 0;
 
-var secondsLeft = 100;
-
-var totalScore = 0; 
+var rightAns1 = document.getElementById("righto1");
 
 function setTime() {
-  var timerInterval = setInterval(function() {
-    secondsLeft--;
-    timeEl.textContent = "Seconds left: " + secondsLeft + ":00";
-
-    if(secondsLeft === 0) {
-      clearInterval(timerInterval);
-      gameOver(); 
-    }
-
-  }, 1000);
-}
-
-startButton.onclick = () => {
-	startEl.style.display = "none";
-	oneEl.style.display = "block";
-}
-
-pageOneButton.onclick = () => {
-	oneEl.style.display = "none";
-	twoEl.style.display = "block";
-}
-
-pageTwoButton.onclick = () => {
-	twoEl.style.display = "none";
-	threeEl.style.display = "block";
-}
-
-pageThreeButton.onclick = () => {
-	threeEl.style.display = "none";
-	fourEl.style.display = "block";
-}
-
-pageFourButton.onclick = () => {
-	fourEl.style.display = "none";
-	endEl.style.display = "block";
-}
-
-
-
-
-
-
-// function quizBegin() {
-// 	document.getElementById("quizContent").remove();
-// 	var pageOne = document.createElement("div");
-// 	document.getElementById("quizZone").appendChild(pageOne);
+	  	var timerInterval = setInterval(function() {
+			secondsLeft--;
+			timeEl.textContent = "Seconds left: " + secondsLeft + ":00";
+		
+			if(secondsLeft <= 0) {
+			clearInterval(timerInterval);
+			gameOver(); 
+			}
 	
-// 	var question = document.createElement("h3");
-// 	pageOne.appendChild(question);
-// 	pageOne.childNodes[0].textContent = "Question 1: What is HTML?";
+	  }, 1000);
+	  next();
+	}
+
+
+function gameOver() {
+		clearInterval(setTime);
+		var quizContent = `
+		<h2>Game over!</h2>
+		<h3>You got a ` + totalScore +  ` /100!</h3>
+		<h3>That means you got ` + totalScore / 20 +  ` questions correct!</h3>
+		<input type="text" id="name" placeholder="First name"> 
+		<button onclick="setScore()">Set score!</button>`;
 	
-// 	var answerOne = document.createElement("button");
-// 	pageOne.appendChild(answerOne);
-// 	pageOne.childNodes[1].textContent = "Hypertext Markup Language";
-// 	pageOne.childNodes[1].setAttribute("id" , "answerOne");
-// 	document.getElementById("answerOne").addEventListener("click" , function() {
-// 		console.log("Correct!");
-// 		questionCounter++;
-// 		totalScore+=1000;
-// 	})
-
-// 	var answerTwo = document.createElement("button");
-// 	pageOne.appendChild(answerTwo);
-// 	pageOne.childNodes[2].textContent = "The basic structure of a webpage";
-// 	pageOne.childNodes[2].setAttribute("id" , "answerTwo");
-// 	document.getElementById("answerTwo").addEventListener("click" , function() {
-// 		console.log("Correct!");
-// 		questionCounter++;
-// 		totalScore+=1000;
-// 	})
-
-// 	var answerThree = document.createElement("button");
-// 	pageOne.appendChild(answerThree);
-// 	pageOne.childNodes[3].textContent = "The first chapter in many web developer bootcamps";
-// 	pageOne.childNodes[3].setAttribute("id" , "answerThree");
-// 	document.getElementById("answerThree").addEventListener("click" , function() {
-// 		console.log("Correct!");
-// 		questionCounter++;
-// 		totalScore+=1000;
-// 	})
-
-// 	var answerFour = document.createElement("button");
-// 	pageOne.appendChild(answerFour);
-// 	pageOne.childNodes[4].textContent = "A kind of frog";
-// 	pageOne.childNodes[4].setAttribute("id" , "answerFour");
-// 	document.getElementById("answerFour").addEventListener("click" , function() {
-// 		console.log("Wrong!");
-// 		questionCounter++;
-// 	})
-// }
-
-// function quizTwo() {
-// 	pageOne.childNodes[0].textContent = "Question 2: What is CSS?";
-// 	pageOne.childNodes[1].textContent = "Cascading Style Sheets";
-// 	pageOne.childNodes[2].textContent = "A way to sculpt the appearance of a web page";
-// 	pageOne.childNodes[3].textContent = "An inline, internal, or external link to page styling elements";
-// 	pageOne.childNodes[4].textContent = "The official flower of California";
-// }
-
-// document.getElementById("quizStart").addEventListener ("click", function() {
-// 		setTime();
-// 		if (questionCounter === 0) {
-// 			document.getElementById("quizContent").remove();
-// 			var pageOne = document.createElement("div");
-// 			document.getElementById("quizZone").appendChild(pageOne);
-			
-// 			var question = document.createElement("h3");
-// 			pageOne.appendChild(question);
-// 			pageOne.childNodes[0].textContent = "Question 1: What is HTML?";
-			
-// 			var answerOne = document.createElement("button");
-// 			pageOne.appendChild(answerOne);
-// 			pageOne.childNodes[1].textContent = "Hypertext Markup Language";
-// 			pageOne.childNodes[1].setAttribute("id" , "answerOne");
-// 			document.getElementById("answerOne").addEventListener("click" , function() {
-// 				console.log("Correct!");
-// 				questionCounter++;
-// 				totalScore+=1000;
-// 			})
-
-// 			var answerTwo = document.createElement("button");
-// 			pageOne.appendChild(answerTwo);
-// 			pageOne.childNodes[2].textContent = "The basic structure of a webpage";
-// 			pageOne.childNodes[2].setAttribute("id" , "answerTwo");
-// 			document.getElementById("answerTwo").addEventListener("click" , function() {
-// 				console.log("Correct!");
-// 				questionCounter++;
-// 				totalScore+=1000;
-// 			})
-
-// 			var answerThree = document.createElement("button");
-// 			pageOne.appendChild(answerThree);
-// 			pageOne.childNodes[3].textContent = "The first chapter in many web developer bootcamps";
-// 			pageOne.childNodes[3].setAttribute("id" , "answerThree");
-// 			document.getElementById("answerThree").addEventListener("click" , function() {
-// 				console.log("Correct!");
-// 				questionCounter++;
-// 				totalScore+=1000;
-// 			})
-
-// 			var answerFour = document.createElement("button");
-// 			pageOne.appendChild(answerFour);
-// 			pageOne.childNodes[4].textContent = "A kind of frog";
-// 			pageOne.childNodes[4].setAttribute("id" , "answerFour");
-// 			document.getElementById("answerFour").addEventListener("click" , function() {
-// 				console.log("Wrong!");
-// 				questionCounter++;
-// 			})
-// 		} else if (questionCounter === 1){
-// 			pageOne.childNodes[0].textContent = "Question 2: What is CSS?";
-// 			pageOne.childNodes[1].textContent = "Cascading Style Sheets";
-// 			pageOne.childNodes[2].textContent = "A way to sculpt the appearance of a web page";
-// 			pageOne.childNodes[3].textContent = "An inline, internal, or external link to page styling elements";
-// 			pageOne.childNodes[4].textContent = "The official flower of California";
-// 		}
-// 	})
+		document.getElementById("quizZone").innerHTML = quizContent;
+	}
 
 
-	//add event listener for button () {
-		//questionCounter++;
-	//}
-	//if right answer {
-		//totalScore++;
-		//print Right!
-		//button
-		//toggle button hidden
-	//} else if wrong answer {
-		//print Wrong!
-		//toggle button hidden
-	//}
+
+
+function next() {
+	if (pageIndex === 0) {
+		var pageOne = `
+		<h2>${questions[0].q}</h2>
+		<button class="righto1">${questions[0].ans[0]}</button>
+		<button class="righto2">${questions[0].ans[1]}</button>
+		<button class="righto3">${questions[0].ans[2]}</button>
+		<button class="wrongo1">${questions[0].ans[3]}</button>
+		`;
+		document.getElementById("quizContent").innerHTML = pageOne;
+	} else if (pageIndex === 1) {
+	var pageTwo = `
+	<h2>${questions[1].q}</h2>
+	<ul>
+	<li>${questions[1].ans[0]}</li>
+	<li>${questions[1].ans[1]}</li>
+	<li>${questions[1].ans[2]}</li>
+	<li>${questions[1].ans[3]}</li>
+	</ul>`;
+
+	document.getElementById("quizContent").innerHTML = pageTwo;
+	} else if (pageIndex === 2) {
+		var pageThree = `
+		<h2>${questions[2].q}</h2>
+		<ul>
+		<li>${questions[2].ans[0]}</li>
+		<li>${questions[2].ans[1]}</li>
+		<li>${questions[2].ans[2]}</li>
+		<li>${questions[2].ans[3]}</li>
+		</ul>`;
+	
+		document.getElementById("quizContent").innerHTML = pageThree;
+	} else if (pageIndex === 3) {
+		var pageFour = `
+		<h2>${questions[3].q}</h2>
+		<ul>
+		<li>${questions[3].ans[0]}</li>
+		<li>${questions[3].ans[1]}</li>
+		<li>${questions[3].ans[2]}</li>
+		<li>${questions[3].ans[3]}</li>
+		</ul>`;
+	
+		document.getElementById("quizContent").innerHTML = pageFour;
+	} else if (pageIndex === 4) {
+		gameOver();
+	}
+	
+	pageIndex++;
+}
+
+
+document.getElementById("nextPage").onclick = (pageIndex) => {
+	pageIndex++;
+	next();
+}
+
+document.getElementsByClassName("righto1").onclick = () => {
+	console.log("Right!");
+}
+
+
+
+	// function next(questionIndex) {	
+	// 		// For loops to loop through all info in array
+	// 		for (var i = 0; i < questions.length; i++) {
+	// 			// Appends question title only
+	// 			var userQuestion = questions[questionIndex].q;
+	// 			var userChoices = questions[questionIndex].ans;
+	// 			quizZone.textContent = userQuestion;
+	// 		}
+	// 		// New for each for question choices
+	// 		userChoices.forEach(function (newItem) {
+	// 			var listItem = document.createElement("li");
+	// 			listItem.textContent = newItem;
+	// 			quizZone.appendChild(ulCreate);
+	// 			ulCreate.appendChild(listItem);
+	// 			listItem.addEventListener("click", (compare));
+	// 		})
+	// 	}
+	
+	
+	// 	document.getElementById("quizBody").innerHTML = quizContent;
+	// }
+
+//document.querySelector("#quizStart").addEventListener("click", next);
 
 
 
 
 
 
-
-
-
-
-
-/* Original Pseudocode here
-Timer
-	Cut to end state if 0:0
-High Scores
-	If highscores then display
-Start screen
-	Coding Quiz challenge
-	Instructions
-	Start button
-Questions
-	Question
-	Answers
-	Right/Wrong
-End screen
-	Score readout
-	Enter initials + Submit
-	Go back
-	Clear high scores
-*/
