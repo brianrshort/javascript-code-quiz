@@ -97,7 +97,7 @@ const thatGotAWhoppingEl = document.getElementById("thatGotAWhopping")
 
 let totalScore
 
-let shuffledQuestions, currentQuestionIndex
+let currentQuestionIndex
 
 let timeEl = document.getElementById("time")
 
@@ -110,7 +110,7 @@ nextButton.addEventListener("click" , () => {
 })
 
 function setTime() {
-	scoresEl.classList.add("hide")
+    scoresEl.classList.add("hide")
 	totalScore = 0
 	secondsLeft = 100
 	var timerInterval = setInterval(function() {
@@ -127,11 +127,8 @@ startGame()
 }
 
 function startGame() {
-	instructionsEl.classList.add("hide")
-    console.log("started")
+    instructionsEl.classList.add("hide")
     startButton.classList.add("hide")
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    
     currentQuestionIndex = 0
     questionContainerElement.classList.remove("hide")
     setNextQuestion()
@@ -139,12 +136,10 @@ function startGame() {
 
 function setNextQuestion() {
     resetState()
-    console.log("continued")
-    showQuestion(shuffledQuestions[currentQuestionIndex])
+    showQuestion(questions[currentQuestionIndex])
 }
 
 function showQuestion(question) {
-    console.log("finished")
     questionElement.innerText = question.question
     question.answers.forEach(answer => {
         const button = document.createElement("button")
@@ -154,15 +149,16 @@ function showQuestion(question) {
             button.dataset.correct = button.correct
         }
     button.addEventListener("click" , selectAnswer)
+    button.addEventListener("click" , newScore)
     answerButtonsElement.appendChild(button)
     })
 }
 
 function resetState() {
-    clearStatusClass(document.body)
+   clearStatusClass(document.body)
     nextButton.classList.add("hide")
     while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+       answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
 }
 
@@ -173,7 +169,7 @@ function selectAnswer(e) {
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    if(shuffledQuestions.length > currentQuestionIndex + 1) {
+    if(questions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove("hide")
     } else {
         gameOver()
