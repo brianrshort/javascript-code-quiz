@@ -5,22 +5,15 @@
     <title>Code Quiz</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <script src="newScript.js" defer></script>
+    <script src="script.js" defer></script>
   </head>
-
   <body>
     <nav class="navbar navbar-light bg-light">
         <a id="highScoreEl">High Scores</a>
             <ul class="navbar-nav">
-              <li id="time" class="nav-item active time">
-                
-              </li>
+              <li id="time" class="nav-item active time"></li>
             </ul>
-        </div>
     </nav>
-
-
-
     <div class="container m-5 p-5 d-flex">
         <div class="row">
             <div class="col-12">
@@ -34,43 +27,35 @@
                 to test your hard-bought knowledge of programming languages!
               </p>
               </div>         
-            <div class="hide" id="question-container">
-                <div id="question">Question</div>
-                <div id="answer-buttons" class="btn-grid">
-                    <button class="btn answer-button btn-primary">Answer 1</button>
-                    <button class="btn answer-button btn-primary">Answer 2</button>
-                    <button class="btn answer-button btn-primary">Answer 3</button>
-                    <button class="btn answer-button btn-primary">Answer 4</button>
+                <div class="hide" id="question-container">
+                    <div id="question">Question</div>
+                    <div id="answer-buttons" class="btn-grid">
+                        <button id="btn1" class="btn answer-button btn-primary">Answer 1</button>
+                        <button id="btn2" class="btn answer-button btn-primary">Answer 2</button>
+                        <button id="btn3" class="btn answer-button btn-primary">Answer 3</button>
+                        <button id="btn4" class="btn answer-button btn-primary">Answer 4</button>
+                    </div>
+                    <div id="empty-div"></div>
                 </div>
-              </div>
                 <div id="score-container" class="hide">
                   <div class="score-page">
-                    <div style="font-size: 40px">Whoa, that was intense!!!<div>
+                    <div style="font-size: 40px">Whoa, that was intense!!!
                       <p id="youGotA"></p>
                       <p id="thatGotAWhopping"></p>
                       <input type="text" id="name" placeholder="First name"> 
                       <button onclick="setScore()">Set score!</button>
+                    </div>
+                    <div class="clearfix"></div>
                   </div>
-                <div class="clearfix"></div>
-            </div>
-            </div>
+                </div>
             </div>
             <div class="col-12">
                 <div class="controls p-3 m-3">
                   <button type="button" id="start-btn" class="start-btn btn btn-success">Start</button>
                   <button type="button" id="next-btn" class="next-btn btn hide btn-success">Next</button>
-              </div>
+                </div>
             </div>
-            
-
-            </div>
-
-
-
-
-            </div>
-            
-            
-     </div>   
+        </div>
+    </div>        
   </body>
 </html>

@@ -83,6 +83,7 @@ var questions = [{
 		]
 }]
 
+
 const startButton = document.getElementById("start-btn")
 const nextButton = document.getElementById("next-btn")
 const questionContainerElement = document.getElementById("question-container")
@@ -90,14 +91,20 @@ const questionContainerElement = document.getElementById("question-container")
 const questionElement = document.getElementById("question")
 const answerButtonsElement = document.getElementById("answer-buttons")
 const instructionsEl = document.getElementById("instructions-container")
+const emptyDivEl = document.getElementById("empty-div")
 
 const scoresEl = document.getElementById("score-container")
 const youGotAEl = document.getElementById("youGotA")
 const thatGotAWhoppingEl = document.getElementById("thatGotAWhopping")
 
-let totalScore
+const btn1El = document.getElementById("btn1")
+const btn2El = document.getElementById("btn2")
+const btn3El = document.getElementById("btn3")
+const btn4El = document.getElementById("btn4")
 
-let shuffledQuestions, currentQuestionIndex
+let totalScore = 0;
+
+let currentQuestionIndex
 
 let timeEl = document.getElementById("time")
 
@@ -127,84 +134,84 @@ startGame()
 }
 
 function startGame() {
+	console.log("started")
 	instructionsEl.classList.add("hide")
-    console.log("started")
-    startButton.classList.add("hide")
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove("hide")
-    setNextQuestion()
+	startButton.classList.add("hide")
+	questionContainerElement.classList.remove("hide")
+	currentQuestionIndex = 0
+	setNextQuestion()
 }
 
 function setNextQuestion() {
-    resetState()
-    console.log("continued")
-    showQuestion(shuffledQuestions[currentQuestionIndex])
+    nextButton.style.display = "hide"
+    emptyDivEl.innerHTML = ""
+	if (currentQuestionIndex === 0) {
+		questionElement.innerText = questions[0].question;
+		btn1El.innerText = questions[0].answers[0].text;
+		btn1El.addEventListener("click" , rightAnswer);
+		btn2El.innerText = questions[0].answers[1].text;
+		btn2El.addEventListener("click" , rightAnswer);
+		btn3El.innerText = questions[0].answers[2].text;
+		btn3El.addEventListener("click" , rightAnswer);
+		btn4El.innerText = questions[0].answers[3].text;
+		btn4El.addEventListener("click" , wrongAnswer);
+	} else if (currentQuestionIndex === 1) {
+		questionElement.innerText = questions[1].question;
+		btn1El.innerText = questions[1].answers[0].text;
+		btn1El.addEventListener("click" , rightAnswer);
+		btn2El.innerText = questions[1].answers[1].text;
+		btn2El.addEventListener("click" , rightAnswer);
+		btn3El.innerText = questions[1].answers[2].text;
+		btn3El.addEventListener("click" , wrongAnswer);
+		btn4El.innerText = questions[1].answers[3].text;
+		btn4El.addEventListener("click" , wrongAnswer);
+	} else if (currentQuestionIndex === 2) {
+		questionElement.innerText = questions[2].question;
+		btn1El.innerText = questions[2].answers[0].text;
+		btn1El.addEventListener("click" , rightAnswer);
+		btn2El.innerText = questions[2].answers[1].text;
+		btn2El.addEventListener("click" , rightAnswer);
+		btn3El.innerText = questions[2].answers[2].text;
+		btn3El.addEventListener("click" , rightAnswer);
+		btn4El.innerText = questions[2].answers[3].text;
+		btn4El.addEventListener("click" , wrongAnswer);
+	} else if (currentQuestionIndex === 3) {
+		questionElement.innerText = questions[3].question;
+		btn1El.innerText = questions[3].answers[0].text;
+		btn1El.addEventListener("click" , wrongAnswer);
+		btn2El.innerText = questions[3].answers[1].text;
+		btn2El.addEventListener("click" , rightAnswer);
+		btn3El.innerText = questions[3].answers[2].text;
+		btn3El.addEventListener("click" , rightAnswer);
+		btn4El.innerText = questions[3].answers[3].text;
+		btn4El.addEventListener("click" , rightAnswer);
+	} else if (currentQuestionIndex > 3) {
+		gameOver();
+	}
 }
 
-function showQuestion(question) {
-    console.log("finished")
-    questionElement.innerText = question.question
-    question.answers.forEach(answer => {
-        const button = document.createElement("button")
-        button.innerText = answer.text
-        button.classList.add("btn")
-        if(answer.correct) {
-            button.dataset.correct = button.correct
-        }
-    button.addEventListener("click" , selectAnswer)
-    answerButtonsElement.appendChild(button)
-    })
+function rightAnswer() {
+	console.log("right")
+	emptyDivEl.innerHTML = "<hr><br>Correct!"
+	totalScore+=1000;
+	nextButton.style.display = "block"
 }
 
-function resetState() {
-    clearStatusClass(document.body)
-    nextButton.classList.add("hide")
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-    }
+function wrongAnswer() {
+	console.log("wrong")
+	emptyDivEl.innerHTML = "<hr><br>Wrong!"
+	questionContainerElement.appendChild(newInner)
+	secondsLeft-=5;
+	nextButton.style.display = "block"
 }
-
-function selectAnswer(e) {
-    const selectedButton = e.target
-	const correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-    if(shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove("hide")
-    } else {
-        gameOver()
-    }
-    
-}
-
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-		element.classList.add("correct")
-    } else {
-		element.classList.add("wrong")
-    }
-}
-
-function clearStatusClass(element) {
-    element.classList.remove("correct")
-    element.classList.remove("wrong")
-}
-
 
 function gameOver() {
-		secondsLeft = -1;
-		questionContainerElement.classList.add("hide")
-		nextButton.classList.add("hide")
-		scoresEl.classList.remove("hide")
-		youGotAEl.innerText = `You got a ` + totalScore +  ` /4000!`
-		thatGotAWhoppingEl.innertext = `That that's a whopping total of ` + totalScore / 4000 +  ` answers right!`
-		startButton.classList.remove("hide")
-		startButton.innerText = "Go again?"
-	}
-
-
+	secondsLeft = -1;
+	questionContainerElement.classList.add("hide")
+	nextButton.classList.add("hide")
+	scoresEl.classList.remove("hide")
+	youGotAEl.innerText = `You got a ` + totalScore +  ` /4000!`
+	thatGotAWhoppingEl.innertext = `That's a whopping total of ` + totalScore / 4000 +  ` answers right!`
+	startButton.classList.remove("hide")
+	startButton.innerText = "Go again?"
+}
