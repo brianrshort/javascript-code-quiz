@@ -8,8 +8,8 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
-        <a id="highScoreEl">High Scores</a>
+    <nav id="scores-parent" class="navbar navbar-light bg-light">
+        <a id="scores-display" class="hide">High Scores</a>
             <ul class="navbar-nav">
               <li id="time" class="nav-item active time"></li>
             </ul>
@@ -17,14 +17,14 @@
     <div class="container m-5 p-5 d-flex">
         <div class="row">
             <div class="col-12">
-              <div id="instructions-container">
-              <div id="instructions" class="mb-3"><h2>Instructions</h2></div>
+              <div id="instructions-container" class="text-center">
+              <div id="instructions" class="mb-3 text-center"><h2>Instructions</h2></div>
               <p>
                 Think you know a lot about coding?
               </p>
               <p>
-                  Try this audacious and <strong>totally tubular</strong> <span style="font-size: 2em">Coding Quiz</span>
-                to test your hard-bought knowledge of programming languages!
+                  Try this <em>audacious</em> and <strong>totally tubular</strong><br> <span style="font-size: 5em">Coding Quiz</span><br>
+                to test your hard-bought<br>knowledge of programming languages!
               </p>
               </div>         
                 <div class="hide" id="question-container">
@@ -43,10 +43,20 @@
                       <p id="youGotA"></p>
                       <p id="thatGotAWhopping"></p>
                       <input type="text" id="name" placeholder="First name"> 
-                      <button onclick="setScore()">Set score!</button>
+                      <button id="submit">Set score!</button>
                     </div>
                     <div class="clearfix"></div>
                   </div>
+                </div>
+            </div>
+            <div id="high-score-container" class="hide">
+                <div>
+                  <div style="font-size: 40px">Here are your coding quiz champs!
+                    <ul>
+                        <li id="high-score-page"></li>
+                    </ul>
+                  </div>
+                  <div class="clearfix"></div>
                 </div>
             </div>
             <div class="col-12">
