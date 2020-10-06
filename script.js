@@ -215,7 +215,7 @@ function addScores() {
 
 //This shows the link in the navbar to reveal the highScoreContainerEl
 function hiScores() {
-    scoresDisplayEl.classList.remove("hide")
+    scoresDisplayEl.classList.remove("hidden")
 }
 
 //This function hides the game over page, shows the high scores page, gets
