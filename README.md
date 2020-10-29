@@ -10,6 +10,8 @@ Here's the link to the live site: https://brianrshort.github.io/javascript-code-
 
 Here is the repo: https://github.com/brianrshort/javascript-code-quiz
 
+License: MIT
+
 Here is how the page looks in action: 
 
 ![Code Quiz in action](https://brianrshort.github.io/javascript-code-quiz/Assets/Code-Quiz.gif)
